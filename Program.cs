@@ -87,7 +87,14 @@ app.MapPost("/api/auth/login", async (LoginRequest req, AppDbContext db) =>
     };
     var token = tokenHandler.CreateToken(tokenDescriptor);
     var jwt = tokenHandler.WriteToken(token);
-    return Results.Ok(new LoginResponse { Token = jwt, Expiry = tokenDescriptor.Expires!.Value });
+    return Results.Ok(new LoginResponse
+    {
+        Token = jwt,
+        Expiry = tokenDescriptor.Expires!.Value,
+        Name = user.Name,
+        Department = user.Department ?? "",
+        Position = user.Position ?? ""
+    });
 });
 
 app.Run();

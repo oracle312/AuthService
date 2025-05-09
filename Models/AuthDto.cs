@@ -20,5 +20,8 @@
     {
         public string Token { get; set; } = null!;
         public DateTime Expiry { get; set; }
+        public string Name { get; set; } = null!;
+        public string Department { get; set; } = null!;
+        public string Position { get; set; } = null!;
     }
 }

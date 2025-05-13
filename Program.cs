@@ -98,5 +98,21 @@ app.MapPost("/api/auth/login", async (LoginRequest req, AppDbContext db) =>
     });
 });
 
+// 모든 사용자 목록 반환 (부서, 이름, 직급)
+app.MapGet("/api/auth/users", async (AppDbContext db) =>
+{
+    var users = await db.Users
+        .Select(u => new LoginResponse
+        {
+            Department = u.Department ?? "",
+            Name = u.Name,
+            Position = u.Position ?? "",
+            Token = ""  // 클라이언트 DTO에 맞춰 빈 문자열
+        })
+        .ToListAsync();
+
+    return Results.Ok(users);
+});
+
 app.Run();
 
